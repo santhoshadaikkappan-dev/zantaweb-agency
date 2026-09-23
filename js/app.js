@@ -105,20 +105,28 @@ document.addEventListener('DOMContentLoaded', () => {
   const elitePrice = document.getElementById('elitePrice');
   const periodLabels = document.querySelectorAll('.tier-period');
   const addonCheckboxes = document.querySelectorAll('.addon-checkbox');
-  const addonsTotalQuote = document.getElementById('addonsTotalQuote');
+  const starterOriginalPrice = document.getElementById('starterOriginalPrice');
+  const growthOriginalPrice = document.getElementById('growthOriginalPrice');
+  const eliteOriginalPrice = document.getElementById('eliteOriginalPrice');
 
-  // Pricing Matrix Base Rates
+  // Pricing Matrix Base Rates with 49% First Purchase Launch Offer
   const PRICING_DATA = {
     onetime: {
-      starter: 950,
-      growth: 2450,
-      elite: 4850,
+      starter: 485,
+      starterOriginal: 950,
+      growth: 1249,
+      growthOriginal: 2450,
+      elite: 2473,
+      eliteOriginal: 4850,
       period: 'one-time build'
     },
     subscription: {
-      starter: 149,
-      growth: 299,
-      elite: 599,
+      starter: 76,
+      starterOriginal: 149,
+      growth: 149,
+      growthOriginal: 299,
+      elite: 299,
+      eliteOriginal: 599,
       period: '/ month (WaaS)'
     }
   };
@@ -130,6 +138,10 @@ document.addEventListener('DOMContentLoaded', () => {
     if (starterPrice) starterPrice.textContent = data.starter;
     if (growthPrice) growthPrice.textContent = data.growth;
     if (elitePrice) elitePrice.textContent = data.elite;
+
+    if (starterOriginalPrice) starterOriginalPrice.textContent = `$${data.starterOriginal}`;
+    if (growthOriginalPrice) growthOriginalPrice.textContent = `$${data.growthOriginal}`;
+    if (eliteOriginalPrice) eliteOriginalPrice.textContent = `$${data.eliteOriginal}`;
 
     periodLabels.forEach(label => {
       label.textContent = data.period;
@@ -155,9 +167,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const totalEstimate = baseSelectedTier + addonsSum;
     if (addonsTotalQuote) {
       if (currentBillingMode === 'onetime') {
-        addonsTotalQuote.textContent = `Est. Package: $${totalEstimate.toLocaleString()} USD`;
+        addonsTotalQuote.textContent = `Est. Package (49% OFF): $${totalEstimate.toLocaleString()} USD`;
       } else {
-        addonsTotalQuote.textContent = `Est. Package: $${totalEstimate.toLocaleString()} / mo`;
+        addonsTotalQuote.textContent = `Est. Package (49% OFF): $${totalEstimate.toLocaleString()} / mo`;
       }
     }
   }
