@@ -61,6 +61,9 @@ html {
   color-scheme: dark;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+  width: 100%;
+  max-width: 100vw;
 }
 
 body {
@@ -69,6 +72,8 @@ body {
   font-family: var(--font-body);
   line-height: 1.6;
   overflow-x: hidden;
+  width: 100%;
+  max-width: 100vw;
   position: relative;
   min-height: 100vh;
 }
@@ -119,8 +124,8 @@ a {
   position: fixed;
   top: 0;
   left: 0;
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  height: 100%;
   z-index: 0;
   pointer-events: none;
 }
@@ -343,7 +348,9 @@ a {
   cursor: pointer;
   transition: var(--transition-smooth);
   border: 1px solid transparent;
-  white-space: nowrap;
+  white-space: normal;
+  text-align: center;
+  max-width: 100%;
 }
 
 .btn-primary {
@@ -1456,107 +1463,7 @@ a {
 }
 
 /* ==========================================================================
-   MOBILE RESPONSIVENESS
-   ========================================================================== */
-@media (max-width: 1024px) {
-  .hero-grid {
-    grid-template-columns: 1fr;
-    gap: 3rem;
-  }
-  
-  .col-8, .col-4, .col-6 {
-    grid-column: span 12;
-  }
-  
-  .case-study-card {
-    grid-template-columns: 1fr;
-  }
-  
-  .pricing-grid {
-    grid-template-columns: 1fr;
-    max-width: 540px;
-    margin: 0 auto;
-  }
-  
-  .pricing-card.featured {
-    transform: none;
-  }
-  
-  .pricing-card.featured:hover {
-    transform: translateY(-6px);
-  }
-  
-  .addons-grid {
-    grid-template-columns: 1fr;
-  }
-  
-  .contact-layout {
-    grid-template-columns: 1fr;
-  }
-  
-  .footer-top {
-    grid-template-columns: 1fr 1fr;
-  }
-}
-
-@media (max-width: 768px) {
-  .nav-links, .speed-badge {
-    display: none;
-  }
-  
-  .mobile-toggle {
-    display: block;
-  }
-  
-  /* Mobile Slide-Over Drawer */
-  .mobile-nav-drawer {
-    position: fixed;
-    top: 108px;
-    left: 0;
-    width: 100%;
-    background: rgba(6, 8, 13, 0.98);
-    backdrop-filter: blur(20px);
-    border-bottom: 1px solid var(--border-subtle);
-    padding: 1.5rem;
-    display: none;
-    flex-direction: column;
-    gap: 1.25rem;
-    z-index: 999;
-  }
-  
-  .mobile-nav-drawer.active {
-    display: flex;
-  }
-  
-  .mobile-nav-drawer .nav-link {
-    font-size: 1.1rem;
-    padding: 8px 0;
-  }
-  
-  .hero-stats-row {
-    grid-template-columns: 1fr;
-    gap: 1rem;
-  }
-  
-  .form-grid {
-    grid-template-columns: 1fr;
-  }
-  
-  .form-group.full-width {
-    grid-column: span 1;
-  }
-  
-  .footer-top {
-    grid-template-columns: 1fr;
-  }
-  
-  .case-metrics-grid {
-    grid-template-columns: 1fr;
-  }
-}
-
-/* ==========================================================================
-   PROMOTIONAL OFFER & BROWSER MOCKUP STYLING
+   BASE EXTENSIONS: OFFER BAR, BROWSER MOCKUP, TECH STACK & PRICING
    ========================================================================== */
 .top-offer-bar {
   background: linear-gradient(90deg, #061826, #092b3d, #061826);
@@ -1583,12 +1490,18 @@ a {
   font-size: 0.72rem;
   text-transform: uppercase;
   letter-spacing: 0.05em;
+  white-space: nowrap;
+}
+
+.top-offer-text {
+  display: inline;
 }
 
 .top-offer-link {
   color: var(--cyber-cyan);
   text-decoration: underline;
   font-weight: 700;
+  white-space: nowrap;
 }
 
 /* Strikethrough Original Price & Discount Pill */
@@ -1643,6 +1556,7 @@ a {
   width: 11px;
   height: 11px;
   border-radius: 50%;
+  flex-shrink: 0;
 }
 
 .dot-red { background: #FF5F56; }
@@ -1652,17 +1566,26 @@ a {
 .browser-url {
   margin-left: 8px;
   background: rgba(0, 0, 0, 0.5);
-  padding: 5px 16px;
+  padding: 5px 14px;
   border-radius: var(--radius-full);
   font-family: var(--font-mono);
-  font-size: 0.78rem;
+  font-size: 0.75rem;
   color: var(--cyber-cyan);
   display: flex;
   align-items: center;
   gap: 8px;
-  flex-grow: 1;
+  flex: 1;
+  min-width: 0;
   max-width: 340px;
   border: 1px solid rgba(255, 255, 255, 0.08);
+  overflow: hidden;
+}
+
+.browser-url span {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-width: 0;
 }
 
 .browser-preview-img {
@@ -1677,6 +1600,10 @@ a {
 
 .browser-mockup:hover .browser-preview-img {
   transform: scale(1.02);
+}
+
+.case-btn-wrap {
+  width: 100%;
 }
 
 /* Tech Stack Banner */
@@ -1702,6 +1629,7 @@ a {
 .tech-stack-left i {
   font-size: 1.8rem;
   color: var(--cyber-cyan);
+  flex-shrink: 0;
 }
 
 .tech-stack-left h4 {
@@ -1736,4 +1664,613 @@ a {
 .stack-badge i {
   color: var(--cyber-cyan);
 }
+
+/* Section Anchor Smooth Scroll Offsets */
+#services, #industries, #case-study, #pricing, #contact {
+  scroll-margin-top: 110px;
+}
+
+/* ==========================================================================
+   RESPONSIVE MEDIA QUERIES (TABLET & MOBILE)
+   ========================================================================== */
+@media (max-width: 1024px) {
+  .hero-grid {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+  
+  .col-8, .col-4, .col-6 {
+    grid-column: span 12;
+  }
+  
+  .case-study-card {
+    grid-template-columns: 1fr;
+  }
+  
+  .pricing-grid {
+    grid-template-columns: 1fr;
+    max-width: 540px;
+    margin: 0 auto;
+  }
+  
+  .pricing-card.featured {
+    transform: none;
+  }
+  
+  .pricing-card.featured:hover {
+    transform: translateY(-6px);
+  }
+  
+  .contact-layout {
+    grid-template-columns: 1fr;
+  }
+  
+  .footer-top {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  /* Prevent any horizontal page overflow */
+  html, body {
+    overflow-x: hidden !important;
+    width: 100%;
+    max-width: 100vw;
+  }
+
+  /* Prevent glow background from overflowing mobile viewport */
+  .glow-sphere {
+    display: none !important;
+  }
+
+  /* Hide desktop-only elements cleanly */
+  .desktop-only, .nav-links, .speed-badge {
+    display: none !important;
+  }
+  
+  .container {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  /* Compact Mobile Header */
+  .top-offer-bar {
+    padding: 6px 10px;
+    font-size: 0.72rem;
+    line-height: 1.35;
+    gap: 4px;
+    justify-content: center;
+  }
+
+  .top-offer-tag {
+    font-size: 0.65rem;
+    padding: 2px 7px;
+  }
+
+  .top-offer-text {
+    font-size: 0.72rem;
+  }
+
+  .top-offer-link {
+    font-size: 0.72rem;
+  }
+
+  .navbar {
+    height: 56px;
+  }
+
+  .brand-logo {
+    font-size: 1.15rem;
+    gap: 8px;
+  }
+
+  .brand-mark {
+    width: 32px;
+    height: 32px;
+    font-size: 0.95rem;
+  }
+
+  .mobile-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 38px;
+    height: 38px;
+    padding: 0;
+    font-size: 1.1rem;
+    color: var(--cyber-cyan);
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+  }
+  
+  /* Mobile Slide-Over Drawer */
+  .mobile-nav-drawer {
+    position: fixed;
+    top: 88px;
+    left: 0;
+    width: 100%;
+    background: rgba(6, 8, 13, 0.98);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border-bottom: 1px solid var(--border-subtle);
+    padding: 1.25rem;
+    display: none;
+    flex-direction: column;
+    gap: 0.85rem;
+    z-index: 999;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8);
+  }
+  
+  .mobile-nav-drawer.active {
+    display: flex;
+  }
+  
+  .mobile-nav-drawer .nav-link {
+    font-size: 1.05rem;
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    color: var(--text-primary);
+    font-weight: 500;
+  }
+
+  /* Section Spacing & Scroll Offsets */
+  #services, #industries, #case-study, #pricing, #contact {
+    scroll-margin-top: 96px;
+  }
+
+  .hero-section {
+    padding-top: 1.5rem;
+    padding-bottom: 2.25rem;
+  }
+
+  .expertise-section, .case-study-section, .pricing-section, .contact-section {
+    padding: 3rem 0;
+  }
+
+  /* Hero Section on Mobile */
+  .hero-pill {
+    padding: 5px 12px;
+    margin-bottom: 1.15rem;
+    font-size: 0.74rem;
+  }
+
+  .hero-title {
+    font-size: 1.95rem;
+    line-height: 1.18;
+    margin-bottom: 0.85rem;
+  }
+
+  .hero-description {
+    font-size: 0.92rem;
+    line-height: 1.55;
+    margin-bottom: 1.25rem;
+  }
+
+  .hero-cta-group {
+    flex-direction: column;
+    width: 100%;
+    gap: 0.75rem;
+    margin-bottom: 1.75rem;
+  }
+
+  .hero-cta-group .btn {
+    width: 100%;
+    padding: 12px 18px;
+    font-size: 0.92rem;
+  }
+
+  .hero-stats-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 6px;
+    padding-top: 1rem;
+    text-align: center;
+  }
+
+  .stat-item {
+    padding: 8px 4px;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: var(--radius-sm);
+  }
+
+  .stat-item h3 {
+    font-size: 1.3rem;
+    font-weight: 800;
+    color: var(--cyber-cyan);
+    margin-bottom: 2px;
+  }
+
+  .stat-item p {
+    font-size: 0.68rem;
+    line-height: 1.25;
+    color: var(--text-muted);
+  }
+
+  /* Hero Speed Benchmark Card */
+  .speed-audit-card {
+    padding: 1.25rem 1rem;
+    border-radius: var(--radius-lg);
+  }
+
+  .audit-header {
+    margin-bottom: 1.25rem;
+    padding-bottom: 0.75rem;
+  }
+
+  .meter-labels {
+    font-size: 0.78rem;
+    gap: 4px;
+    flex-wrap: wrap;
+  }
+
+  .audit-footer-callout {
+    font-size: 0.8rem;
+    padding: 0.75rem;
+    gap: 8px;
+  }
+
+  /* Section Headers on Mobile */
+  .section-header {
+    margin-bottom: 1.75rem;
+  }
+
+  .section-badge {
+    font-size: 0.75rem;
+    padding: 4px 12px;
+    margin-bottom: 0.75rem;
+  }
+
+  .section-title {
+    font-size: 1.65rem;
+    line-height: 1.22;
+    margin-bottom: 0.5rem;
+    overflow-wrap: break-word;
+  }
+
+  .section-subtitle {
+    font-size: 0.88rem;
+    line-height: 1.5;
+  }
+
+  /* Tech Stack Callout */
+  .tech-stack-callout {
+    padding: 1.25rem 1rem;
+    border-radius: var(--radius-md);
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+    margin-bottom: 2.25rem;
+  }
+
+  .tech-stack-left {
+    gap: 10px;
+  }
+
+  .tech-stack-left i {
+    font-size: 1.5rem;
+  }
+
+  .tech-stack-left h4 {
+    font-size: 1.05rem;
+  }
+
+  .tech-stack-left p {
+    font-size: 0.82rem;
+  }
+
+  .tech-stack-pills-row {
+    width: 100%;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .stack-badge {
+    width: 100%;
+    padding: 8px 12px;
+    font-size: 0.8rem;
+  }
+
+  /* Bento Grid (Industries) on Mobile */
+  .bento-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .bento-card {
+    grid-column: span 1 !important;
+    padding: 1.25rem 1rem;
+    border-radius: var(--radius-md);
+  }
+
+  .bento-icon {
+    width: 44px;
+    height: 44px;
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+  }
+
+  .bento-title {
+    font-size: 1.18rem;
+    margin-bottom: 0.4rem;
+  }
+
+  .bento-desc {
+    font-size: 0.86rem;
+    line-height: 1.5;
+  }
+
+  .payment-badges-flex {
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .payment-badge {
+    width: 100%;
+    font-size: 0.82rem;
+    padding: 8px 12px;
+    justify-content: flex-start;
+  }
+
+  .hosting-savings-card {
+    padding: 0.9rem;
+    gap: 0.5rem;
+  }
+
+  .savings-number {
+    font-size: 1.45rem;
+  }
+
+  /* Case Study Card on Mobile - Flawless No Cutoff */
+  .case-study-card {
+    grid-template-columns: 1fr;
+    border-radius: var(--radius-lg);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+    width: 100%;
+    max-width: 100%;
+    overflow: hidden;
+  }
+
+  .case-study-media {
+    padding: 0.75rem;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .browser-mockup {
+    width: 100%;
+    max-width: 100%;
+    border-radius: var(--radius-md);
+  }
+
+  .browser-bar {
+    padding: 8px 10px;
+    gap: 6px;
+  }
+
+  .browser-dot {
+    width: 8px;
+    height: 8px;
+  }
+
+  .browser-url {
+    font-size: 0.68rem;
+    padding: 3px 8px;
+    max-width: 220px;
+    gap: 6px;
+  }
+
+  .browser-preview-img {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: contain;
+  }
+
+  .case-study-content {
+    padding: 1.25rem 1rem;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .case-client-tag {
+    font-size: 0.72rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .case-title {
+    font-size: 1.28rem;
+    line-height: 1.28;
+    margin-bottom: 0.75rem;
+    overflow-wrap: break-word;
+    word-break: normal;
+  }
+
+  .case-description {
+    font-size: 0.88rem;
+    line-height: 1.55;
+    margin-bottom: 1.15rem;
+    overflow-wrap: break-word;
+  }
+
+  .case-metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 5px;
+    padding: 0.75rem 0;
+    margin-bottom: 1.15rem;
+    text-align: center;
+  }
+
+  .metric-box {
+    padding: 8px 4px;
+    background: rgba(255, 255, 255, 0.02);
+    border-radius: var(--radius-sm);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+  }
+
+  .metric-box h4 {
+    font-size: 1.1rem;
+    font-weight: 800;
+    color: var(--cyber-cyan);
+    margin-bottom: 2px;
+  }
+
+  .metric-box span {
+    font-size: 0.64rem;
+    line-height: 1.2;
+    color: var(--text-muted);
+    display: block;
+  }
+
+  .case-client-quote {
+    font-size: 0.82rem;
+    line-height: 1.5;
+    padding: 8px 12px;
+    margin-bottom: 1.25rem;
+    border-left: 2px solid var(--emerald-edge);
+    background: rgba(16, 185, 129, 0.04);
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  }
+
+  .case-btn-wrap .case-btn {
+    width: 100%;
+    font-size: 0.9rem;
+    padding: 12px 16px;
+  }
+
+  /* Pricing Cards on Mobile */
+  .pricing-controls-wrapper {
+    margin-bottom: 2rem;
+  }
+
+  .billing-toggle-container {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    max-width: 330px;
+    padding: 4px;
+    gap: 4px;
+  }
+
+  .toggle-label {
+    flex: 1;
+    text-align: center;
+    font-size: 0.75rem;
+    padding: 6px 4px;
+    white-space: nowrap;
+  }
+
+  .pricing-grid {
+    grid-template-columns: 1fr;
+    max-width: 100%;
+    gap: 1.25rem;
+  }
+
+  .pricing-card {
+    padding: 1.5rem 1.15rem;
+    border-radius: var(--radius-lg);
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .tier-name {
+    font-size: 1.35rem;
+  }
+
+  .tier-amount {
+    font-size: 2.25rem;
+  }
+
+  .tier-features {
+    font-size: 0.85rem;
+  }
+
+  /* Contact Form on Mobile */
+  .strategy-form-card {
+    padding: 1.35rem 1.1rem;
+    border-radius: var(--radius-lg);
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .form-grid {
+    grid-template-columns: 1fr;
+    gap: 0.9rem;
+  }
+  
+  .form-group.full-width {
+    grid-column: span 1;
+  }
+
+  .form-input, .form-select, .form-textarea {
+    font-size: 16px;
+    padding: 11px 13px;
+  }
+  
+  .footer-top {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .footer-bottom {
+    flex-direction: column;
+    gap: 1rem;
+    text-align: center;
+  }
+
+  .tech-pills {
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-title {
+    font-size: 1.75rem;
+  }
+
+  .section-title {
+    font-size: 1.45rem;
+  }
+
+  .hero-stats-row {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 4px;
+  }
+
+  .stat-item h3 {
+    font-size: 1.15rem;
+  }
+
+  .stat-item p {
+    font-size: 0.62rem;
+  }
+
+  .browser-url {
+    max-width: 170px;
+    font-size: 0.64rem;
+  }
+
+  .metric-box h4 {
+    font-size: 1rem;
+  }
+
+  .metric-box span {
+    font-size: 0.6rem;
+  }
+
+  .billing-toggle-container {
+    max-width: 100%;
+  }
+
+  .toggle-label {
+    font-size: 0.7rem;
+    padding: 6px 2px;
+  }
+}
+
 
