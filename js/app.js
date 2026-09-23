@@ -9,15 +9,17 @@ document.addEventListener('DOMContentLoaded', () => {
   // =========================================================================
   // 1. NAVBAR SCROLL EFFECT & MOBILE NAVIGATION
   // =========================================================================
-  const navbar = document.querySelector('.navbar');
+  const headerMaster = document.querySelector('.header-master');
   const mobileToggle = document.getElementById('mobileToggle');
   const mobileNav = document.getElementById('mobileNav');
 
   window.addEventListener('scroll', () => {
-    if (window.scrollY > 40) {
-      navbar.classList.add('scrolled');
-    } else {
-      navbar.classList.remove('scrolled');
+    if (headerMaster) {
+      if (window.scrollY > 30) {
+        headerMaster.classList.add('scrolled');
+      } else {
+        headerMaster.classList.remove('scrolled');
+      }
     }
   });
 
