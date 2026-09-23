@@ -1,6 +1,6 @@
 /**
  * ZANTAWEB - Agency Core Interactive Application
- * Tiered MOQ Simulator, Dynamic Pricing Engine, Spotlight Physics & Async Form Handler
+ * Clean & Streamlined: Pricing Calculator, Mobile UX & WhatsApp Dispatch
  */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -40,7 +40,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // =========================================================================
-  // 2. SPOTLIGHT MOUSE TRACKER ON CARDS (Aceternity UI Style)
+  // 2. SPOTLIGHT MOUSE TRACKER ON CARDS
   // =========================================================================
   const spotlightCards = document.querySelectorAll('.spotlight-card');
   spotlightCards.forEach(card => {
@@ -54,62 +54,18 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // =========================================================================
-  // 3. INTERACTIVE MOQ & TIERED PRICING MATRIX SIMULATOR
-  // =========================================================================
-  const moqSlider = document.getElementById('moqUnitsSlider');
-  const moqUnitsDisplay = document.getElementById('moqUnitsVal');
-  const moqDiscountDisplay = document.getElementById('moqDiscountVal');
-  const moqUnitPriceDisplay = document.getElementById('moqUnitPriceVal');
-  const moqTotalDisplay = document.getElementById('moqTotalVal');
-
-  const BASE_UNIT_MSRP = 35.00; // Base MSRP per cosmetic unit
-
-  function updateTieredPricing(units) {
-    if (!moqSlider) return;
-
-    let discountPercent = 0;
-    if (units >= 1000) {
-      discountPercent = 65;
-    } else if (units >= 500) {
-      discountPercent = 50;
-    } else if (units >= 250) {
-      discountPercent = 35;
-    } else if (units >= 50) {
-      discountPercent = 20;
-    }
-
-    const unitPrice = BASE_UNIT_MSRP * (1 - discountPercent / 100);
-    const totalCost = units * unitPrice;
-    const clientProfitMargin = Math.round(((BASE_UNIT_MSRP - unitPrice) / BASE_UNIT_MSRP) * 100 + 40);
-
-    moqUnitsDisplay.textContent = `${units.toLocaleString()} Units`;
-    moqDiscountDisplay.textContent = `-${discountPercent}% OFF`;
-    moqUnitPriceDisplay.textContent = `$${unitPrice.toFixed(2)}`;
-    moqTotalDisplay.textContent = `$${Math.round(totalCost).toLocaleString()}`;
-  }
-
-  if (moqSlider) {
-    moqSlider.addEventListener('input', (e) => {
-      updateTieredPricing(parseInt(e.target.value, 10));
-    });
-    // Init
-    updateTieredPricing(parseInt(moqSlider.value, 10));
-  }
-
-  // =========================================================================
-  // 4. INTERACTIVE 3-TIER PRICING & ADD-ONS CALCULATOR
+  // 3. INTERACTIVE 3-TIER PRICING (49% FIRST PURCHASE DISCOUNT)
   // =========================================================================
   const billingToggles = document.querySelectorAll('.toggle-label');
   const starterPrice = document.getElementById('starterPrice');
   const growthPrice = document.getElementById('growthPrice');
   const elitePrice = document.getElementById('elitePrice');
-  const periodLabels = document.querySelectorAll('.tier-period');
-  const addonCheckboxes = document.querySelectorAll('.addon-checkbox');
   const starterOriginalPrice = document.getElementById('starterOriginalPrice');
   const growthOriginalPrice = document.getElementById('growthOriginalPrice');
   const eliteOriginalPrice = document.getElementById('eliteOriginalPrice');
+  const periodLabels = document.querySelectorAll('.tier-period');
 
-  // Pricing Matrix Base Rates with 49% First Purchase Launch Offer
+  // Pricing Matrix Base Rates with 49% Launch Offer
   const PRICING_DATA = {
     onetime: {
       starter: 485,
@@ -146,32 +102,6 @@ document.addEventListener('DOMContentLoaded', () => {
     periodLabels.forEach(label => {
       label.textContent = data.period;
     });
-
-    calculateAddonsTotal();
-  }
-
-  function calculateAddonsTotal() {
-    let baseSelectedTier = currentBillingMode === 'onetime' ? PRICING_DATA.onetime.growth : PRICING_DATA.subscription.growth;
-    let addonsSum = 0;
-
-    addonCheckboxes.forEach(checkbox => {
-      const parentCard = checkbox.closest('.addon-card');
-      if (checkbox.checked) {
-        addonsSum += parseInt(checkbox.dataset.price, 10);
-        if (parentCard) parentCard.classList.add('selected');
-      } else {
-        if (parentCard) parentCard.classList.remove('selected');
-      }
-    });
-
-    const totalEstimate = baseSelectedTier + addonsSum;
-    if (addonsTotalQuote) {
-      if (currentBillingMode === 'onetime') {
-        addonsTotalQuote.textContent = `Est. Package (49% OFF): $${totalEstimate.toLocaleString()} USD`;
-      } else {
-        addonsTotalQuote.textContent = `Est. Package (49% OFF): $${totalEstimate.toLocaleString()} / mo`;
-      }
-    }
   }
 
   billingToggles.forEach(toggle => {
@@ -183,28 +113,11 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  addonCheckboxes.forEach(box => {
-    box.addEventListener('change', calculateAddonsTotal);
-  });
-
-  // Make whole addon card clickable
-  document.querySelectorAll('.addon-card').forEach(card => {
-    card.addEventListener('click', (e) => {
-      if (e.target.tagName !== 'INPUT') {
-        const checkbox = card.querySelector('.addon-checkbox');
-        if (checkbox) {
-          checkbox.checked = !checkbox.checked;
-          calculateAddonsTotal();
-        }
-      }
-    });
-  });
-
-  // Init pricing
+  // Initialize pricing
   updatePricingCards();
 
   // =========================================================================
-  // 5. ASYNCHRONOUS STRATEGY CONSULTATION FORM & WHATSAPP GENERATOR
+  // 4. CONSULTATION FORM & DIRECT WHATSAPP GENERATOR (+91 9344087944)
   // =========================================================================
   const strategyForm = document.getElementById('strategyForm');
   const formFeedback = document.getElementById('formFeedback');
@@ -213,17 +126,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function generateWhatsAppMessage(formData) {
     const text = 
-`✦ *ZANTAWEB ASYNC STRATEGY INQUIRY* ✦
+`✦ *ZANTAWEB PROJECT INQUIRY (49% OFF)* ✦
 ━━━━━━━━━━━━━━━━━━━━
 • *Client Name:* ${formData.fullName || 'N/A'}
-• *Business / Brand:* ${formData.brandName || 'N/A'}
-• *Current Website:* ${formData.websiteUrl || 'New Project'}
-• *Target Architecture:* ${formData.projectScope || 'High-Speed B2B Storefront'}
-• *Estimated Budget:* ${formData.budgetRange || '$2,500 - $5,000'}
-• *Desired Timeline:* ${formData.launchTimeline || '2-4 Weeks'}
-• *Project Notes:* ${formData.projectNotes || 'Interested in migrating away from slow templates.'}
+• *Business / Profession:* ${formData.brandName || 'N/A'}
+• *Industry / Field:* ${formData.industryField || 'General Business'}
+• *Current Website:* ${formData.websiteUrl || 'New Website'}
+• *Selected Package:* ${formData.projectScope || 'Growth Store ($1,249)'}
+• *Estimated Budget:* ${formData.budgetRange || '$500 - $1,500'}
+• *Target Launch:* ${formData.launchTimeline || 'Within 1-2 Weeks'}
+• *Requirements:* ${formData.projectNotes || 'Interested in building a high-speed website with Antigravity, GitHub & Vercel.'}
 ━━━━━━━━━━━━━━━━━━━━
-Sent from ZANTAWEB Portfolio Console`;
+Sent from ZANTAWEB Portfolio`;
 
     return `https://wa.me/${WHATSAPP_PHONE}?text=${encodeURIComponent(text)}`;
   }
@@ -235,16 +149,17 @@ Sent from ZANTAWEB Portfolio Console`;
       const fullName = document.getElementById('clientName').value.trim();
       const clientEmail = document.getElementById('clientEmail').value.trim();
       const brandName = document.getElementById('brandName').value.trim();
+      const industryField = document.getElementById('industryField') ? document.getElementById('industryField').value : 'General Business';
       const websiteUrl = document.getElementById('websiteUrl').value.trim();
       const projectScope = document.getElementById('projectScope').value;
       const budgetRange = document.getElementById('budgetRange').value;
       const launchTimeline = document.getElementById('launchTimeline').value;
       const projectNotes = document.getElementById('projectNotes').value.trim();
 
-      // Basic Validation
+      // Validation
       if (!fullName || !clientEmail || !brandName) {
         formFeedback.className = 'form-feedback error';
-        formFeedback.textContent = 'Please provide your name, email, and brand name to generate your strategy brief.';
+        formFeedback.textContent = 'Please fill in your name, email, and business name.';
         return;
       }
 
@@ -252,6 +167,7 @@ Sent from ZANTAWEB Portfolio Console`;
         fullName,
         clientEmail,
         brandName,
+        industryField,
         websiteUrl,
         projectScope,
         budgetRange,
@@ -262,27 +178,25 @@ Sent from ZANTAWEB Portfolio Console`;
       // Success State
       formFeedback.className = 'form-feedback success';
       formFeedback.innerHTML = `
-        <strong><i class="fa-solid fa-circle-check"></i> Strategy Brief Created Successfully!</strong><br>
-        Thank you, ${fullName}. Your asynchronous project parameters have been logged. 
-        You can also send this formatted brief directly to our team via WhatsApp for priority same-day response:
+        <strong><i class="fa-solid fa-circle-check"></i> Inquiry Received!</strong><br>
+        Thank you, ${fullName}. We will get back to you within 24 hours.
         <div style="margin-top: 10px;">
-          <a href="${generateWhatsAppMessage(formData)}" target="_blank" class="btn btn-whatsapp btn-sm" style="display: inline-flex; font-size: 0.85rem; padding: 6px 14px;">
-            <i class="fa-brands fa-whatsapp"></i> Send Formatted Brief on WhatsApp (+91 9344087944)
+          <a href="${generateWhatsAppMessage(formData)}" target="_blank" class="btn btn-whatsapp" style="display: inline-flex; font-size: 0.85rem; padding: 8px 16px;">
+            <i class="fa-brands fa-whatsapp"></i> Send Direct on WhatsApp (+91 9344087944)
           </a>
         </div>
       `;
 
-      // Reset fields smoothly after delay
       setTimeout(() => {
         strategyForm.reset();
-      }, 4000);
+      }, 5000);
     });
   }
 
-  // Pre-configured Direct WhatsApp Button in sidebar
+  // Pre-configured Direct WhatsApp Button
   if (directWhatsAppBtn) {
-    directWhatsAppBtn.addEventListener('click', (e) => {
-      const defaultText = `Hello ZANTAWEB Team, I'm interested in an asynchronous web architecture consultation for my brand. Let's connect!`;
+    directWhatsAppBtn.addEventListener('click', () => {
+      const defaultText = `Hello ZANTAWEB, I am interested in building a fast, modern website for my business with the 49% discount. Please share details!`;
       window.open(`https://wa.me/${WHATSAPP_PHONE}?text=${encodeURIComponent(defaultText)}`, '_blank');
     });
   }
